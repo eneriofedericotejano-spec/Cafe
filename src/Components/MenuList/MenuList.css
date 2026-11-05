@@ -1,0 +1,62 @@
+.menu-container {
+  max-width: 1200px;
+  padding: 1rem 3rem;
+  margin: 0 auto;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.fi-so-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 0;
+}
+
+.order-counter {
+  padding: 2rem;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.not-active {
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  border-radius: 16px;
+  border: 1px solid #a4abbf;
+  background-color: white;
+  min-width: 80px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.active {
+  background-color: #ea580c;
+  color: white;
+}
+
+.search-input {
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #a4abbf;
+  min-width: 200px;
+   box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
