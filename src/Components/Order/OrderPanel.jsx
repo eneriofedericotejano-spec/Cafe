@@ -6,7 +6,7 @@ export default function OrderPanel({ order, onRemoveOrder, onIncreaseQuantity, o
     <div key={line.lineId}>
       <h2>{line.name}</h2>
       <button onClick={() => {onRemoveOrder(line.lineId)}}>Remove</button>
-      <div className="quantity-containe">
+      <div className="quantity-container">
        <button onClick={() => {onDecreaseQuantity(line.lineId)}}>-</button>
       <button onClick={() => {onIncreaseQuantity(line.lineId)}}>+</button>
       <span>Quantity: {line.quantity}</span>
