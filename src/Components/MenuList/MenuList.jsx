@@ -14,9 +14,45 @@ export default function MenuList() {
   const [selectedId, setSelectedId] = useState(null);
   const [order, setOrder] = useState([]);
 
-  function handleAddToOrder(line) {
-    setOrder((prev) => [...prev, line]);
+  function handleIncreaseQuantity(id) {
+    setOrder((prev) =>
+      prev.map((line) =>
+        line.lineId === id ? { ...line, quantity: line.quantity + 1 } : line,
+      ),
+    );
   }
+
+  function handleDecreaseQuantity(id) {
+    setOrder((prev) =>
+      prev.map((line) =>
+        line.lineId === id
+          ? { ...line, quantity: Math.max(1, line.quantity - 1) }
+          : line,
+      ),
+    );
+  }
+
+  function handleRemoveOrder(id) {
+    setOrder((prev) => prev.filter((line) => line.lineId !== id));
+  }
+
+  function handleAddToOrder(line) {
+    setOrder((prev) => {
+      const match = prev.find(
+        (existing) => existing.id === line.id && existing.sugar === line.sugar,
+      );
+
+      if (match) {
+        return prev.map((existing) =>
+          existing.lineId === match.lineId
+            ? { ...existing, quantity: existing.quantity + line.quantity }
+            : existing,
+        );
+      }
+
+      return [...prev, line];
+    });
+  } 
 
   function handleAddOrder(name) {
     alert(`You added ${name} to your order`);
@@ -109,11 +145,12 @@ export default function MenuList() {
           />
         )}
 
-        <OrderPanel 
+        <OrderPanel
           order={order}
+          onRemoveOrder={handleRemoveOrder}
+          onIncreaseQuantity={handleIncreaseQuantity}
+          onDecreaseQuantity={handleDecreaseQuantity}
         />
-
-       
       </section>
     </>
   );
