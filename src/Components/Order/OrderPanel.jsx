@@ -12,14 +12,12 @@ export default function OrderPanel({ order, onRemoveOrder, onIncreaseQuantity, o
       <span>Quantity: {line.quantity}</span>
       </div>
       <span>Sugar: {line.sugar}</span>
-      <span>Total:{line.total}</span>
+      <span>Total: {line.total}</span>
 
+      <span>Add Ons</span>
       <ul>
-         <span>Add Ons</span>
         {line.addOns.map((addOn) => (
-          <div>
-            <li key={addOn.name}>{addOn.name}</li>
-          </div>
+          <li key={addOn.name}>{addOn.name}</li>
         ))}
       </ul>
     </div>
