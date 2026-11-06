@@ -38,6 +38,7 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
       addOns: selectedOptions,
       total: total,
     };
+    
 
     onAddToOrder(line);
     onClose();
