@@ -36,10 +36,20 @@ export default function MenuList() {
     setOrder((prev) => prev.filter((line) => line.lineId !== id));
   }
 
+  function getAddOnKey(addOns) {
+    return addOns
+      .map((addOn) => addOn.id)
+      .sort()
+      .join(",");
+  }
+
   function handleAddToOrder(line) {
     setOrder((prev) => {
       const match = prev.find(
-        (existing) => existing.id === line.id && existing.sugar === line.sugar,
+        (existing) =>
+          existing.id === line.id &&
+          existing.sugar === line.sugar &&
+          getAddOnKey(existing.addOns) === getAddOnKey(line.addOns),
       );
 
       if (match) {
@@ -52,7 +62,7 @@ export default function MenuList() {
 
       return [...prev, line];
     });
-  } 
+  }
 
   function handleAddOrder(name) {
     alert(`You added ${name} to your order`);
