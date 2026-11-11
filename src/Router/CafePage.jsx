@@ -8,22 +8,22 @@ export default function CafePage() {
 
   // Dinadagdagan ng 1 ang quantity ng isang line.
   // Ipinapasa sa OrderPanel bilang onIncreaseQuantity (+ button).
-  function handleIncreaseQuantity(id) {
-    setOrder((prev) => prev.map((line) => (line.lineId === id ? { ...line, quantity: line.quantity + 1 } : line)));
+  function handleIncreaseQuantity(lineId) {
+    setOrder((prev) => prev.map((line) => (line.lineId === lineId ? { ...line, quantity: line.quantity + 1 } : line)));
   }
 
   // Binabawasan ng 1 ang quantity (hindi bababa sa 1).
   // Ipinapasa sa OrderPanel bilang onDecreaseQuantity (- button).
-  function handleDecreaseQuantity(id) {
+  function handleDecreaseQuantity(lineId) {
     setOrder((prev) =>
-      prev.map((line) => (line.lineId === id ? { ...line, quantity: Math.max(1, line.quantity - 1) } : line)),
+      prev.map((line) => (line.lineId === lineId ? { ...line, quantity: Math.max(1, line.quantity - 1) } : line)),
     );
   }
 
   // Tinatanggal ang isang line sa order.
   // Ipinapasa sa OrderPanel bilang onRemoveOrder (Remove button).
-  function handleRemoveOrder(id) {
-    setOrder((prev) => prev.filter((line) => line.lineId !== id));
+  function handleRemoveOrder(lineId) {
+    setOrder((prev) => prev.filter((line) => line.lineId !== lineId ));
   }
 
   // Gumagawa ng susi mula sa mga add-ons para maikumpara ang dalawang listahan.
