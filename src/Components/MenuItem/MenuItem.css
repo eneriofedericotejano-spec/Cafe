@@ -1,5 +1,17 @@
+
+.card-grid {
+  grid-auto-rows: 1fr;          
+}
+
+.card-design {
+  height: 100%;               
+}
+
 .menu-card {
   width: 100%;
+  height: 100%;                 
+  display: flex;                
+  flex-direction: column;       
 }
 
 .image-container {
@@ -24,20 +36,29 @@
   align-items: center;
   padding: 1rem;
   gap: 1rem;
+  flex: 1;          
 }
 
 .lower-container {
   display: flex;
-  align-items: flex-start;   
+  align-items: flex-start;
   width: 100%;
   justify-content: space-between;
-  gap: 12px;                
+  gap: 12px;
 }
 
 .menu-name {
   font-size: 1.2rem;
   font-weight: 600;
+  line-height: 1.2;
+  min-height: 2.4em;   
 }
+
+.menu-price {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .add-to-order-btn {
   cursor: pointer;
   padding: 0.5rem 1.5rem;
@@ -45,9 +66,5 @@
   border-radius: 12px;
   width: 100%;
   border: none;
-}
-
-.menu-price {
-  white-space: nowrap;
-  flex-shrink: 0;  
+  margin-top: auto;           
 }
