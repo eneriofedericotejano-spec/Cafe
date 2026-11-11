@@ -20,11 +20,7 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
   }
 
   function handleToggleAddOn(name) {
-    setSelectedAddOns((prev) =>
-      prev.includes(name)
-        ? prev.filter((item) => item !== name)
-        : [...prev, name],
-    );
+    setSelectedAddOns((prev) => (prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]));
   }
 
   function handleConfirm() {
@@ -36,22 +32,15 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
       quantity: quantity,
       sugar: sugarOptions,
       addOns: selectedOptions,
-      total: total,
     };
-    
 
     onAddToOrder(line);
     onClose();
   }
 
-  const selectedOptions = addOnOptions.filter((option) =>
-    selectedAddOns.includes(option.name),
-  );
+  const selectedOptions = addOnOptions.filter((option) => selectedAddOns.includes(option.name));
 
-  const addOnsTotal = selectedOptions.reduce(
-    (sum, option) => sum + option.price,
-    0,
-  );
+  const addOnsTotal = selectedOptions.reduce((sum, option) => sum + option.price, 0);
 
   const total = (item.price + addOnsTotal) * quantity;
 
@@ -63,9 +52,7 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
             X
           </button>
           <div className="image-container">
-            {item.image && (
-              <img src={item.image} alt={item.name} className="image" />
-            )}
+            {item.image && <img src={item.image} alt={item.name} className="image" />}
           </div>
           <div className="details-container">
             <div className="upper-container">
@@ -101,11 +88,7 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
                 {buttons.map((button) => (
                   <button
                     key={button}
-                    className={
-                      button === sugarOptions
-                        ? "sugar-button active"
-                        : "sugar-button"
-                    }
+                    className={button === sugarOptions ? "sugar-button active" : "sugar-button"}
                     onClick={() => setSugarOptions(button)}
                   >
                     {button}
@@ -131,9 +114,7 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
                     <div className="addon-content">
                       <div className="addon-info">
                         <span className="addon-name">{option.name}</span>
-                        <span className="addon-description">
-                          {option.description}
-                        </span>
+                        <span className="addon-description">{option.description}</span>
                       </div>
                       <span className="addon-price">+₱{option.price}</span>
                     </div>
