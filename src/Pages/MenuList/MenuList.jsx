@@ -1,17 +1,15 @@
 import coffeeMenu from "../../Data/MenuData.js";
 import MenuItem from "../../Components/MenuItem/MenuItem.jsx";
-import ItemDetails from "../../Components/Modal/ItemDetails.jsx";
 import { Link } from "react-router";
 import "./MenuList.css";
 import { useState } from "react";
 
 const categories = ["All", "Coffee", "Tea", "Pastry"];
 
-export default function MenuList({onAddToOrder}) {
+export default function MenuList() {
   const [orderCount, setOrderCount] = useState(0);
   const [selected, setSelected] = useState("All");
   const [lastOrdered, setLastOrdered] = useState(null);
-  const [selectedId, setSelectedId] = useState(null);
 
   function handleAddOrder(name) {
     alert(`You added ${name} to your order`);
@@ -27,16 +25,9 @@ export default function MenuList({onAddToOrder}) {
     });
   }
 
-  function handleOpenDetails(id) {
-    console.log("open", id);
-    setSelectedId(id);
+  function slugify(text) {
+    return text.toLowerCase().replaceAll(" ", "-");
   }
-
-  function handleCloseDetails() {
-    setSelectedId(null);
-  }
-
-  const selectedItem = coffeeMenu.find((product) => product.id === selectedId);
 
   const filtered = selected === "All" ? coffeeMenu : coffeeMenu.filter((product) => product.category === selected);
 
@@ -70,25 +61,21 @@ export default function MenuList({onAddToOrder}) {
 
         <div className="card-grid">
           {filtered.map((item) => (
-            <MenuItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              image={item.image}
-              price={item.price}
-              badge={item.badge}
-              onAddToOrder={handleAddOrder}
-              onLastOrder={handleLastOrdered}
-              onOpenDetails={handleOpenDetails}
-            />
+            <Link key={item.id} to={`/details/${item.id}/${slugify(item.name)}`} className="card-link">
+              <MenuItem
+                id={item.id}
+                name={item.name}
+                image={item.image}
+                price={item.price}
+                badge={item.badge}
+                onAddToOrder={handleAddOrder}
+                onLastOrder={handleLastOrdered}
+              />
+            </Link>
           ))}
         </div>
 
-         <Link to="/order">Proceed to Order</Link>
-
-        {selectedItem && (
-          <ItemDetails item={selectedItem} onAddToOrder={onAddToOrder} onClose={handleCloseDetails} />
-        )}
+        <Link to="/order">Proceed to Order</Link>
       </section>
     </>
   );
