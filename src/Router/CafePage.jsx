@@ -1,5 +1,7 @@
 import MenuList from "../Pages/MenuList/MenuList.jsx";
 import OrderPanel from "../Pages/Order/OrderPanel.jsx";
+import ItemDetails from "../Components/Modal/ItemDetails.jsx";
+import coffeeMenu from "../Data/MenuData.js";
 import { Routes, Route, Navigate } from "react-router";
 import { useState } from "react";
 
@@ -23,7 +25,7 @@ export default function CafePage() {
   // Tinatanggal ang isang line sa order.
   // Ipinapasa sa OrderPanel bilang onRemoveOrder (Remove button). Tapos ipapasa ulit sa OrderLine.
   function handleRemoveOrder(lineId) {
-    setOrder((prev) => prev.filter((line) => line.lineId !== lineId ));
+    setOrder((prev) => prev.filter((line) => line.lineId !== lineId));
   }
 
   // Gumagawa ng susi mula sa mga add-ons para maikumpara ang dalawang listahan.
@@ -36,7 +38,7 @@ export default function CafePage() {
   }
 
   // Nagdadagdag ng line sa order, o pinag-merge kung pareho ang item, sugar, at add-ons.
-  // Ipinapasa sa MenuList bilang onAddToOrder, tapos sa ItemDetails (Confirm button).
+  // Ipinapasa sa ItemDetails (Route na /details/:productId) bilang onAddToOrder (Confirm button).
   function handleAddToOrder(line) {
     setOrder((prev) => {
       const match = prev.find(
@@ -59,7 +61,11 @@ export default function CafePage() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/menu" replace />} />
-      <Route path="/menu" element={<MenuList onAddToOrder={handleAddToOrder} />} />
+      <Route path="/menu" element={<MenuList />} />
+      <Route
+        path="/details/:productId/:name"
+        element={<ItemDetails items={coffeeMenu} onAddToOrder={handleAddToOrder} />}
+      />
       <Route
         path="/order"
         element={
