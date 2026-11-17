@@ -1,13 +1,24 @@
 import { useState } from "react";
+import { useParams, useNavigate } from "react-router";
 import "./ItemDetails.css";
 import addOnOptions from "../../Data/AddOns";
 
-export default function ItemDetails({ item, onClose, onAddToOrder }) {
+export default function ItemDetails({ items, onAddToOrder }) {
   const [quantity, setQuantity] = useState(1);
   const [sugarOptions, setSugarOptions] = useState("50%");
   const [selectedAddOns, setSelectedAddOns] = useState([]);
 
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  const item = items.find((i) => i.id === Number(productId));
+
+  if (!item) return <p>Item not found.</p>;
+
   const buttons = ["0%", "50%", "100%"];
+
+  function handleClose() {
+    navigate("/menu");
+  }
 
   function handleDecrease() {
     if (quantity > 1) setQuantity((q) => q - 1);
@@ -20,8 +31,16 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
   }
 
   function handleToggleAddOn(name) {
-    setSelectedAddOns((prev) => (prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]));
+    setSelectedAddOns((prev) =>
+      prev.includes(name) ? prev.filter((addOnName) => addOnName !== name) : [...prev, name],
+    );
   }
+
+  const selectedOptions = addOnOptions.filter((option) => selectedAddOns.includes(option.name));
+
+  const addOnsTotal = selectedOptions.reduce((sum, option) => sum + option.price, 0);
+
+  const total = (item.price + addOnsTotal) * quantity;
 
   function handleConfirm() {
     const line = {
@@ -35,20 +54,14 @@ export default function ItemDetails({ item, onClose, onAddToOrder }) {
     };
 
     onAddToOrder(line);
-    onClose();
+    handleClose();
   }
-
-  const selectedOptions = addOnOptions.filter((option) => selectedAddOns.includes(option.name));
-
-  const addOnsTotal = selectedOptions.reduce((sum, option) => sum + option.price, 0);
-
-  const total = (item.price + addOnsTotal) * quantity;
 
   return (
     <>
       <section className="details-modal-overlay">
         <div className="box">
-          <button className="close-button" onClick={onClose}>
+          <button className="close-button" onClick={handleClose}>
             X
           </button>
           <div className="image-container">
