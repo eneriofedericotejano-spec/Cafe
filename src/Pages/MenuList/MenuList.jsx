@@ -68,7 +68,7 @@ export default function MenuList() {
                 image={item.image}
                 price={item.price}
                 badge={item.badge}
-                onAddToOrder={handleAddOrder}
+                description={item.description}
                 onLastOrder={handleLastOrdered}
               />
             </Link>
